@@ -99,7 +99,7 @@ async def finalize_course_payment(callback: CallbackQuery, bot: Bot, course_id):
                 chat_id=admin.tg_id,
                 text=f'<b>❗️Новая оплата❗️\n'
                      f'Пользователь <a href="tg://user?id={tg_id}">{callback.from_user.full_name}</a>\n'
-                     f'Название курса: {course.name}\n'
+                     f'Название курса: {course.title}\n'
                      f'Стоимость: {course.price}₽\n'
                      f'Способ оплаты: ЮKassa</b>',
                 parse_mode='HTML'
