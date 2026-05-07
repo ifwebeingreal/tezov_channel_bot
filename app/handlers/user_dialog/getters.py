@@ -17,8 +17,11 @@ from app.database.requests.user.select import get_user
 
 from app.states import UserSG
 
-Configuration.account_id = 1124260
-Configuration.secret_key = "live_WJlzJLIkLd-jzsuEVNnemBasBrZNVg-sKqpwocRZMrE"
+# Configuration.account_id = 1124260
+# Configuration.secret_key = "live_WJlzJLIkLd-jzsuEVNnemBasBrZNVg-sKqpwocRZMrE"
+
+Configuration.account_id = 1106267
+Configuration.secret_key = 'test_ERAYzpQ35G3AGugSlRliuhxQmroQ4yp7BG0tKvdS_nI'
 
 
 async def skate_levels_getter(dialog_manager: DialogManager, **kwargs):
