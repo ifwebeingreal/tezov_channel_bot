@@ -42,8 +42,8 @@ async def user_back(callback: CallbackQuery, state: FSMContext):
     try:
         await callback.message.edit_text(text=f"""Привет, {callback.from_user.first_name}! Добро пожаловать в Skate channel - место, где ты найдешь ответы на любые вопросы🙏
     
-    Что именно тебя интересует?
-    """,
+Что именно тебя интересует?
+""",
                                      reply_markup=await bkb.user_panel(callback.from_user.id))
     except Exception:
         await callback.answer()
