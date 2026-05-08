@@ -371,7 +371,7 @@ async def free_lessons_for_user(course_id: int):
     for lesson in lessons:
         kb.row(InlineKeyboardButton(text=f"{lesson.title}", callback_data=f"freeuserlesson_{lesson.id}"))
 
-    kb.row(InlineKeyboardButton(text="Пройти тест", callback_data="lessons_quiz"))
+    kb.row(InlineKeyboardButton(text="Пройти тест", callback_data="size_quiz"))
     kb.row(InlineKeyboardButton(text="Назад", callback_data=f"usercourse_{course_id}"))
 
     return kb.as_markup()
@@ -393,7 +393,7 @@ async def no_free_lessons_for_user(course_id: int):
     for lesson in lessons:
         kb.row(InlineKeyboardButton(text=f"{lesson.title}", callback_data=f"userlesson_{lesson.id}"))
 
-    kb.row(InlineKeyboardButton(text="Пройти тест", callback_data="lessons_quiz"))
+    kb.row(InlineKeyboardButton(text="Пройти тест", callback_data="size_quiz"))
     kb.row(InlineKeyboardButton(text="Назад", callback_data=f"usercourse_{course_id}"))
 
     return kb.as_markup()
@@ -402,7 +402,7 @@ async def no_free_lessons_for_user(course_id: int):
 async def user_back_to_no_free(course_id: int):
     kb = InlineKeyboardBuilder()
 
-    kb.row(InlineKeyboardButton(text="Задать вопрос", url="https://t.me/DanyaTezov"))
+    kb.row(InlineKeyboardButton(text="Задать вопрос", url="https://t.me/+9lrs_9z4dqVkMTFi"))
     kb.row(InlineKeyboardButton(text="Назад", callback_data=f"user_buy_course_{course_id}"))
 
     return kb.as_markup()

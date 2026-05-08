@@ -28,6 +28,7 @@ from app.handlers.user_course_message import user_course
 
 from app.handlers.quiz_message.dialog import quiz, quiz_dialog
 from app.handlers.user_dialog.dialog import user_dialog, user as user_base
+from app.handlers.size_message.dialog import size, size_dialog
 
 from app.database.models import create_db
 
@@ -76,6 +77,9 @@ async def main():
 
     dp.include_router(user_base)
     dp.include_router(user_dialog)
+
+    dp.include_router(size)
+    dp.include_router(size_dialog)
 
     setup_dialogs(dp)
 

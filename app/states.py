@@ -96,3 +96,9 @@ class UpdateLesson(StatesGroup):
     new_description = State()
     new_video = State()
     is_free = State()
+
+
+class Size(StatesGroup):
+    age = State()
+    height = State()
+    foot_size = State()
