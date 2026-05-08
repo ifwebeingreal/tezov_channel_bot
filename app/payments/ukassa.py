@@ -11,7 +11,7 @@ from aiogram.types import CallbackQuery
 import app.keyboards.builder as bkb
 import app.keyboards.inline as ikb
 
-from config import CHANNEL_ID, CHAT_ID
+from config import CHANNEL_ID, CHAT_ID, ACCOUNT_ID, SECRET_KEY
 
 from app.database.requests.tariff.select import get_tariff
 from app.database.requests.subscription.select import get_subscription
@@ -19,11 +19,8 @@ from app.database.requests.subscription.add import set_subscription
 from app.database.requests.admin.select import get_admins
 from app.database.requests.subscription.update import update_subscription_end_date
 
-Configuration.account_id = 1106267
-Configuration.secret_key = 'test_ERAYzpQ35G3AGugSlRliuhxQmroQ4yp7BG0tKvdS_nI'
-
-# Configuration.account_id = 1124260
-# Configuration.secret_key = "live_WJlzJLIkLd-jzsuEVNnemBasBrZNVg-sKqpwocRZMrE"
+Configuration.account_id = int(ACCOUNT_ID)
+Configuration.secret_key = str(SECRET_KEY)
 
 
 # def create_invoice(tariff, user_id):

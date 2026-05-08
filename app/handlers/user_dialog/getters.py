@@ -16,12 +16,10 @@ from app.database.requests.trick.select import (get_tricks_by_level_id_and_figur
 from app.database.requests.user.select import get_user
 
 from app.states import UserSG
+from config import SECRET_KEY, ACCOUNT_ID
 
-# Configuration.account_id = 1124260
-# Configuration.secret_key = "live_WJlzJLIkLd-jzsuEVNnemBasBrZNVg-sKqpwocRZMrE"
-
-Configuration.account_id = 1106267
-Configuration.secret_key = 'test_ERAYzpQ35G3AGugSlRliuhxQmroQ4yp7BG0tKvdS_nI'
+Configuration.account_id = int(ACCOUNT_ID)
+Configuration.secret_key = str(SECRET_KEY)
 
 
 async def skate_levels_getter(dialog_manager: DialogManager, **kwargs):

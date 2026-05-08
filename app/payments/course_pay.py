@@ -13,13 +13,10 @@ from app.database.requests.admin.select import get_admins
 from app.database.requests.course.select import get_course
 from app.database.requests.course_order.select import get_course_order
 from app.database.requests.course_order.add import set_course_order
+from config import ACCOUNT_ID, SECRET_KEY
 
-Configuration.account_id = 1106267
-Configuration.secret_key = 'test_ERAYzpQ35G3AGugSlRliuhxQmroQ4yp7BG0tKvdS_nI'
-
-# Configuration.account_id = 1124260
-# Configuration.secret_key = "live_WJlzJLIkLd-jzsuEVNnemBasBrZNVg-sKqpwocRZMrE"
-
+Configuration.account_id = int(ACCOUNT_ID)
+Configuration.secret_key = str(SECRET_KEY)
 
 
 def create_course_invoice(course, tg_id):
