@@ -26,7 +26,7 @@ size_dialog = Dialog(
         Const(text="<b>Сколько тебе лет?</b>"),
     Column(
             Button(Const(text="<10"), id="on_first_1", on_click=on_first_1),
-            Button(Const(text="10-14"), id="on_first_2", on_click=on_first_2),
+            Button(Const(text="10-15"), id="on_first_2", on_click=on_first_2),
             Button(Const(text=">15"), id="on_first_3", on_click=on_first_3),
             Button(Const(text="⏪ Назад"), id="on_back_menu", on_click=on_back_menu),
         ),
