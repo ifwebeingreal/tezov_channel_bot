@@ -81,7 +81,7 @@ async def user_panel(tg_id):
 
     # kb.row(InlineKeyboardButton(text="Мастерская", callback_data="channel"))
     kb.row(InlineKeyboardButton(text="База знаний", callback_data="skate_base"))
-    kb.row(InlineKeyboardButton(text="Узнать свой уровень", callback_data="check_level"))
+    # kb.row(InlineKeyboardButton(text="Узнать свой уровень", callback_data="check_level"))
 
     return kb.as_markup()
 

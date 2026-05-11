@@ -19,7 +19,7 @@ import app.keyboards.builder as bkb
 from app.database.requests.user.add import set_user
 from app.database.requests.admin.select import get_admins
 
-from app.states import UserSG
+from app.states import UserSG, Quiz
 
 from app.handlers.user_dialog.getters import (skate_levels_getter, figures_getter,
                                               tricks_getter, trick_info_getter, payment_getter, prefix_tricks_getter)
@@ -28,7 +28,7 @@ from app.handlers.user_dialog.onclick import (on_skate_level, on_back,
                                               on_back_menu, on_figure,
                                               on_trick, on_trick_info,
                                               on_back_2, on_one_list,
-                                              on_nine_in_one, on_trick_2)
+                                              on_nine_in_one, on_trick_2, on_start_quiz_from_base)
 
 from app.handlers.user_dialog.text_input import correct_search_tricks, check_text
 
@@ -62,6 +62,12 @@ user_dialog = Dialog(
             NextPage(scroll="skate_level_scroll", text=Const("➡️")),
         ),
         Column(
+            Button(
+                Const("Узнать свой уровень"),
+                id="check_your_lvl",
+                on_click=on_start_quiz_from_base  # Меняем функцию здесь
+            ),
+
             Button(Const("🏡 Назад в меню"), id="back_menu", on_click=on_back_menu),
         ),
         state=UserSG.skate_level,

@@ -4,7 +4,8 @@ from typing import Any
 
 from aiogram import Bot
 from aiogram.types import CallbackQuery
-from aiogram_dialog import DialogManager
+from aiogram_dialog import DialogManager, StartMode
+from aiogram_dialog.widgets.kbd import Button
 
 from app.database.requests.figure.select import get_figures_by_level_id
 from app.database.requests.order.select import get_order
@@ -14,7 +15,12 @@ from app.database.requests.subscription.select import get_subscription
 
 import app.keyboards.builder as bkb
 
-from app.states import UserSG
+from app.states import UserSG, Quiz
+
+
+async def on_start_quiz_from_base(callback: CallbackQuery, button: Button, manager: DialogManager):
+    # Запускаем диалог квиза поверх текущего
+    await manager.start(Quiz.how_much, mode=StartMode.NORMAL)
 
 
 async def on_back(callback: CallbackQuery, widget: Any, dialog_manager: DialogManager):
