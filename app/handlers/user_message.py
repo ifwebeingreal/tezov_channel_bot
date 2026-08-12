@@ -49,18 +49,18 @@ async def start_command(message: Message):
 
 @user.callback_query(F.data == "channel")
 async def channel(callback: CallbackQuery):
-    await callback.answer("Мастерская временно недоступна!",
-                          show_alert=True)
-#     await callback.message.edit_text("""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
-#
-# Расписание канала:
-# ✅Пн - еженедельные разборы вопросов/ошибок
-# ✅Ср - тренировка (новичок/начинающий)
-# ✅Пт, вс - тренировка (средний/продвинутый)
-#
-# ✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
-# """,
-#                                      reply_markup=await bkb.channel_panel(callback.from_user.id))
+    # await callback.answer("Мастерская временно недоступна!",
+    #                       show_alert=True)
+    await callback.message.edit_text("""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
+
+Расписание канала:
+✅Пн - еженедельные разборы вопросов/ошибок
+✅Ср - тренировка (новичок/начинающий)
+✅Пт, вс - тренировка (средний/продвинутый)
+
+✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
+""",
+                                     reply_markup=await bkb.channel_panel(callback.from_user.id))
 
 
 @user.callback_query(F.data == "my_subscription")
@@ -80,44 +80,44 @@ async def my_subscription(callback: CallbackQuery):
         )
 
 
-# @user.callback_query(F.data == "cancel_subscription")
-# async def cancel_subscription(callback: CallbackQuery):
-#     tg_id = callback.from_user.id
-#     await update_subscription_is_active(tg_id, False)
-#     await callback.answer(
-#         text="Вы успешно отключили автосписание",
-#         show_alert=True
-#     )
-#     await callback.message.edit_text(f"""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
-#
-# Расписание канала:
-# ✅Пн - еженедельные разборы вопросов/ошибок
-# ✅Ср - тренировка (новичок/начинающий)
-# ✅Пт, вс - тренировка (средний/продвинутый)
-#
-# ✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
-# """,
-#                          reply_markup=await bkb.user_panel(callback.from_user.id))
-#
-#
-# @user.callback_query(F.data == "activate_subscription")
-# async def activate_subscription(callback: CallbackQuery):
-#     tg_id = callback.from_user.id
-#     await update_subscription_is_active(tg_id, True)
-#     await callback.answer(
-#         text="Вы успешно включили автосписание",
-#         show_alert=True
-#     )
-#     await callback.message.edit_text(f"""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
-#
-# Расписание канала:
-# ✅Пн - еженедельные разборы вопросов/ошибок
-# ✅Ср - тренировка (новичок/начинающий)
-# ✅Пт, вс - тренировка (средний/продвинутый)
-#
-# ✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
-# """,
-#                          reply_markup=await bkb.user_panel(callback.from_user.id))
+@user.callback_query(F.data == "cancel_subscription")
+async def cancel_subscription(callback: CallbackQuery):
+    tg_id = callback.from_user.id
+    await update_subscription_is_active(tg_id, False)
+    await callback.answer(
+        text="Вы успешно отключили автосписание",
+        show_alert=True
+    )
+    await callback.message.edit_text(f"""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
+
+Расписание канала:
+✅Пн - еженедельные разборы вопросов/ошибок
+✅Ср - тренировка (новичок/начинающий)
+✅Пт, вс - тренировка (средний/продвинутый)
+
+✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
+""",
+                         reply_markup=await bkb.user_panel(callback.from_user.id))
+
+
+@user.callback_query(F.data == "activate_subscription")
+async def activate_subscription(callback: CallbackQuery):
+    tg_id = callback.from_user.id
+    await update_subscription_is_active(tg_id, True)
+    await callback.answer(
+        text="Вы успешно включили автосписание",
+        show_alert=True
+    )
+    await callback.message.edit_text(f"""Мастерская - это закрытый канал, в котором ты будешь регулярно получать полезную информацию по всем аспектам скейтбординга🛹
+
+Расписание канала:
+✅Пн - еженедельные разборы вопросов/ошибок
+✅Ср - тренировка (новичок/начинающий)
+✅Пт, вс - тренировка (средний/продвинутый)
+
+✅Два раза в месяц тренировки, направленные на профилактику травм, офп, функциональный тренинг
+""",
+                         reply_markup=await bkb.user_panel(callback.from_user.id))
 
 
 @user.callback_query(F.data == "check_level")
