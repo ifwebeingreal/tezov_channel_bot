@@ -68,18 +68,18 @@ async def user_panel(tg_id):
     for course in courses:
         kb.row(InlineKeyboardButton(text=f"{course.title}", callback_data=f"usercourse_{course.id}"))
 
-    # subscription = await get_subscription(tg_id=tg_id)
-    #
-    # if subscription:
-    #     kb.row(InlineKeyboardButton(text="Продлить подписку", callback_data="extend_subscription"))
-    #     if subscription and subscription.is_active:
-    #         kb.row(InlineKeyboardButton(text="❌ Отключить автосписание", callback_data="cancel_subscription"))
-    #     else:
-    #         kb.row(InlineKeyboardButton(text="✅ Включить автосписание", callback_data="activate_subscription"))
-    # else:
-    #     kb.row(InlineKeyboardButton(text="Тарифы", callback_data="all_tariffs"))
+    subscription = await get_subscription(tg_id=tg_id)
 
-    # kb.row(InlineKeyboardButton(text="Мастерская", callback_data="channel"))
+    if subscription:
+        kb.row(InlineKeyboardButton(text="Продлить подписку", callback_data="extend_subscription"))
+        if subscription and subscription.is_active:
+            kb.row(InlineKeyboardButton(text="❌ Отключить автосписание", callback_data="cancel_subscription"))
+        else:
+            kb.row(InlineKeyboardButton(text="✅ Включить автосписание", callback_data="activate_subscription"))
+    else:
+        kb.row(InlineKeyboardButton(text="Тарифы", callback_data="all_tariffs"))
+
+    kb.row(InlineKeyboardButton(text="Мастерская", callback_data="channel"))
     kb.row(InlineKeyboardButton(text="База знаний", callback_data="skate_base"))
     # kb.row(InlineKeyboardButton(text="Узнать свой уровень", callback_data="check_level"))
 
