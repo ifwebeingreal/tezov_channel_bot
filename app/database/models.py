@@ -87,7 +87,7 @@ class Order(Base):
     __tablename__ = 'order'
 
     id: Mapped[intpk]
-    user_id: Mapped[int]
+    user_id: Mapped[int] = mapped_column(BigInteger)
     trick_id: Mapped[int]
 
 

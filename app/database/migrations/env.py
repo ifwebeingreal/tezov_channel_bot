@@ -8,19 +8,19 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from app.database.models import Base
-from config import DB_URL
+from config import config as my_cfg
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-config = context.config
+cfg = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+if cfg.config_file_name is not None:
+    fileConfig(cfg.config_file_name)
 
 
-config.set_main_option("sqlalchemy.url", DB_URL)
+cfg.set_main_option("sqlalchemy.url", my_cfg.database.sqlalchemy_url())
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -46,7 +46,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = cfg.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -72,7 +72,7 @@ async def run_async_migrations() -> None:
     """
 
     connectable = async_engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        cfg.get_section(cfg.config_ini_section, {}),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
