@@ -5,7 +5,7 @@ from aiogram.types import Message, CallbackQuery
 
 import app.keyboards.inline as ikb
 
-from config import CHANNEL_ID
+from config import config
 
 
 class CheckSubscription(BaseMiddleware):
@@ -16,7 +16,7 @@ class CheckSubscription(BaseMiddleware):
         event: Message,
         data: Dict[str, Any]
     ) -> Any:
-        chat_member = await event.bot.get_chat_member(CHANNEL_ID, event.from_user.id)
+        chat_member = await event.bot.get_chat_member(config.bot.channel_id, event.from_user.id)
 
         if chat_member.status == "left":
             await event.answer(
@@ -35,7 +35,7 @@ class CheckSubscriptionCallback(BaseMiddleware):
         event: CallbackQuery,
         data: Dict[str, Any]
     ) -> Any:
-        chat_member = await event.bot.get_chat_member(CHANNEL_ID, event.from_user.id)
+        chat_member = await event.bot.get_chat_member(config.bot.channel_id, event.from_user.id)
 
         if chat_member.status == "left":
             await event.message.answer(

@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import CHANNEL_LINK
+from config import config
 
 admin_panel = InlineKeyboardMarkup(
     inline_keyboard=[
@@ -63,7 +63,7 @@ free_lesson_panel = InlineKeyboardMarkup(
 
 check_sub = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Подписаться", url=CHANNEL_LINK)],
+        [InlineKeyboardButton(text="Подписаться", url=config.bot.channel_link)],
         [InlineKeyboardButton(text="Проверить подписку", callback_data="check_sub")]
     ]
 )
