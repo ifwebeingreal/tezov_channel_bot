@@ -15,7 +15,7 @@ from app.database.requests.subscription.update import update_subscription_end_da
 from app.database.requests.tariff.select import get_tariff
 
 from app.states import Gift
-from config import CHANNEL_ID, CHAT_ID
+from config import config
 
 gift = Router()
 
@@ -63,15 +63,15 @@ async def tg_id_selected(message: Message, state: FSMContext, bot: Bot):
                                    None, tariff_id)
 
             try:
-                await bot.unban_chat_member(tg_id, CHANNEL_ID)
-                await bot.unban_chat_member(tg_id, CHAT_ID)
+                await bot.unban_chat_member(tg_id, config.bot.channel_id)
+                await bot.unban_chat_member(tg_id, config.bot.chat_id)
             except TelegramBadRequest as e:
                 print(f"Ошибка при разблокировке пользователя {tg_id}: {e}")
                 # Можно добавить логику, например, отправить сообщение админу
 
             # Создание ссылки на канал
             try:
-                link = await bot.create_chat_invite_link(CHANNEL_ID, member_limit=1)
+                link = await bot.create_chat_invite_link(config.bot.channel_id, member_limit=1)
                 await message.answer(
                     f"<b>Ссылка на канал: {link.invite_link}</b>",
                     disable_web_page_preview=True,
