@@ -11,7 +11,7 @@ from app.database.requests.subscription.select import get_expired_subscriptions,
 from app.database.requests.subscription.update import update_subscription_end_date
 from app.database.requests.tariff.select import get_tariff
 
-from config import CHANNEL_ID, CHAT_ID
+from config import config
 
 
 # async def send_message_middleware(bot: Bot, tg_id: int):
@@ -39,15 +39,15 @@ from config import CHANNEL_ID, CHAT_ID
 async def send_message_middleware(bot: Bot, tg_id: int, message: str):
     try:
         # Забанить, удалить подписку, уведомить, разбанить
-        await bot.ban_chat_member(user_id=tg_id, chat_id=CHANNEL_ID)
-        await bot.ban_chat_member(user_id=tg_id, chat_id=CHAT_ID)
+        await bot.ban_chat_member(user_id=tg_id, chat_id=config.bot.channel_id)
+        await bot.ban_chat_member(user_id=tg_id, chat_id=config.bot.chat_id)
         await delete_subscription_by_tg_id(tg_id)
         await bot.send_message(tg_id, message, reply_markup=await bkb.user_panel(tg_id))
         # await bot.unban_chat_member(user_id=tg_id, chat_id=CHANNEL_ID)
     except Exception:
         # Если ошибка, всё равно удалить подписку и разбанить
-        await bot.ban_chat_member(user_id=tg_id, chat_id=CHANNEL_ID)
-        await bot.ban_chat_member(user_id=tg_id, chat_id=CHAT_ID)
+        await bot.ban_chat_member(user_id=tg_id, chat_id=config.bot.channel_id)
+        await bot.ban_chat_member(user_id=tg_id, chat_id=config.bot.chat_id)
         await delete_subscription_by_tg_id(tg_id)
         # await bot.unban_chat_member(user_id=tg_id, chat_id=CHANNEL_ID)
 
