@@ -5,9 +5,9 @@ from sqlalchemy import ForeignKey, String, BigInteger, Numeric, Boolean, DateTim
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
-from config import DB_URL
+from config import config
 
-engine = create_async_engine(url=DB_URL,
+engine = create_async_engine(url=config.database.sqlalchemy_url(),
                              echo=False)
 
 async_session = async_sessionmaker(engine)

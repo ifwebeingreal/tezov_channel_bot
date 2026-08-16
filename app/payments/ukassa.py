@@ -11,7 +11,7 @@ from aiogram.types import CallbackQuery
 import app.keyboards.builder as bkb
 import app.keyboards.inline as ikb
 
-from config import CHANNEL_ID, CHAT_ID, ACCOUNT_ID, SECRET_KEY
+from config import config
 
 from app.database.requests.tariff.select import get_tariff
 from app.database.requests.subscription.select import get_subscription
@@ -19,8 +19,8 @@ from app.database.requests.subscription.add import set_subscription
 from app.database.requests.admin.select import get_admins
 from app.database.requests.subscription.update import update_subscription_end_date
 
-Configuration.account_id = int(ACCOUNT_ID)
-Configuration.secret_key = str(SECRET_KEY)
+Configuration.account_id = int(config.yookassa.account_id)
+Configuration.secret_key = str(config.yookassa.secret_key)
 
 
 # def create_invoice(tariff, user_id):
@@ -63,7 +63,7 @@ def create_invoice(tariff, user_id):
     }, uuid.uuid4())
 
 
-async def create_payment(callback: CallbackQuery, bot: Bot, tariff_id):
+async def create_payment(callback: CallbackQuery, bot: Bot, tariff_id: int):
     user_id = callback.from_user.id
     tariff = await get_tariff(tariff_id)
     user = await get_subscription(user_id)
@@ -81,12 +81,13 @@ async def create_payment(callback: CallbackQuery, bot: Bot, tariff_id):
 # Для оплаты на сумму {tariff.price} ₽ нажмите на кнопку "Оплатить"
 # После оплаты подписка продлиться автоматически</b>"""
 #     )
-    await callback.message.edit_text(message, reply_markup=await bkb.ukassa_pay(payment.confirmation.confirmation_url))
+    await callback.message.edit_text(message,
+                                     reply_markup=await bkb.ukassa_pay(payment.confirmation.confirmation_url))
 
     asyncio.create_task(check_payment_status(payment.id, callback, bot, tariff_id))
 
 
-async def check_payment_status(payment_id: str, callback: CallbackQuery, bot: Bot, tariff_id):
+async def check_payment_status(payment_id: str, callback: CallbackQuery, bot: Bot, tariff_id: int):
     timeout = 600  # Таймаут 10 минут (600 секунд), чтобы не ждать вечно
     elapsed = 0
     while elapsed < timeout:
@@ -114,15 +115,15 @@ async def finalize_payment(callback: CallbackQuery, bot: Bot, tariff_id, payment
 
         # Попытка разблокировать пользователя с обработкой ошибки
         try:
-            await bot.unban_chat_member(user_id=user_id, chat_id=CHANNEL_ID)
-            await bot.unban_chat_member(user_id=user_id, chat_id=CHAT_ID)
+            await bot.unban_chat_member(user_id=user_id, chat_id=config.bot.channel_id)
+            await bot.unban_chat_member(user_id=user_id, chat_id=config.bot.chat_id)
         except TelegramBadRequest as e:
             print(f"Ошибка при разблокировке пользователя {user_id}: {e}")
             # Можно добавить логику, например, отправить сообщение админу
 
         # Создание ссылки на канал
         try:
-            link = await bot.create_chat_invite_link(CHANNEL_ID, member_limit=1)
+            link = await bot.create_chat_invite_link(config.bot.channel_id, member_limit=1)
             await callback.message.answer(
                 f"<b>Спасибо за оплату! Добро пожаловать в закрытый канал!</b>\n"
                 f"<b>Ссылка на канал: {link.invite_link}</b>",

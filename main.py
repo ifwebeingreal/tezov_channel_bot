@@ -5,13 +5,17 @@ import sys
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from aiogram.fsm.storage.base import DefaultKeyBuilder
+from aiogram.fsm.storage.redis import RedisStorage
 from aiogram_dialog import setup_dialogs
+
+import redis.asyncio as aioredis
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from app.filters.admin_filter import AdminProtect
 from app.filters.check_sub import CheckSubscription, CheckSubscriptionCallback
-from config import BOT_TOKEN
+from config import config
 
 from app.handlers.user_message import user
 from app.handlers.admin_message import admin
@@ -41,11 +45,14 @@ scheduler = AsyncIOScheduler()
 async def main():
     print("Bot is starting...")
 
+    redis = await aioredis.from_url(config.redis.redis_url)
+
     await create_db()
 
-    bot = Bot(token=BOT_TOKEN,
+    bot = Bot(token=config.bot.bot_token,
               default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-    dp = Dispatcher()
+    dp = Dispatcher(storage=RedisStorage(redis,
+                                         DefaultKeyBuilder(with_destiny=True)))
 
     # dp.message.middleware(CheckSubscription())
     # dp.callback_query.middleware(CheckSubscriptionCallback())

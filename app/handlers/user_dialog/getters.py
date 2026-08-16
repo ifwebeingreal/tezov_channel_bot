@@ -16,10 +16,10 @@ from app.database.requests.trick.select import (get_tricks_by_level_id_and_figur
 from app.database.requests.user.select import get_user
 
 from app.states import UserSG
-from config import SECRET_KEY, ACCOUNT_ID
+from config import config
 
-Configuration.account_id = int(ACCOUNT_ID)
-Configuration.secret_key = str(SECRET_KEY)
+Configuration.account_id = int(config.yookassa.account_id)
+Configuration.secret_key = str(config.yookassa.secret_key)
 
 
 async def skate_levels_getter(dialog_manager: DialogManager, **kwargs):
@@ -31,7 +31,7 @@ async def skate_levels_getter(dialog_manager: DialogManager, **kwargs):
 
 
 async def figures_getter(dialog_manager: DialogManager, **kwargs):
-    level_id = dialog_manager.dialog_data.get("skate_level_id")
+    level_id = int(dialog_manager.dialog_data.get("skate_level_id"))
     print(level_id)
     figures = await get_figures_by_level_id(level_id)
 
@@ -57,8 +57,8 @@ async def figures_getter(dialog_manager: DialogManager, **kwargs):
 
 
 async def tricks_getter(dialog_manager: DialogManager, **kwargs):
-    level_id = dialog_manager.dialog_data.get("skate_level_id")
-    figure_id = dialog_manager.dialog_data.get("figure_id")
+    level_id = int(dialog_manager.dialog_data.get("skate_level_id"))
+    figure_id = int(dialog_manager.dialog_data.get("figure_id"))
     visual = dialog_manager.dialog_data.get("visual")
     tricks = await get_tricks_by_level_id_and_figure_id(level_id, figure_id)
 
@@ -78,7 +78,7 @@ async def prefix_tricks_getter(dialog_manager: DialogManager, **kwargs):
 
 
 async def trick_info_getter(dialog_manager: DialogManager, **kwargs):
-    trick_id = dialog_manager.dialog_data.get("trick_id")
+    trick_id = int(dialog_manager.dialog_data.get("trick_id"))
     trick = await get_trick_by_id(trick_id)
 
     if trick.video is None:
@@ -99,7 +99,7 @@ async def trick_info_getter(dialog_manager: DialogManager, **kwargs):
 
 
 async def payment_getter(dialog_manager: DialogManager, bot: Bot, **kwargs):
-    trick_id = dialog_manager.dialog_data.get("trick_id")
+    trick_id = int(dialog_manager.dialog_data.get("trick_id"))
     trick = await get_trick_by_id(trick_id)
     user = await get_user(dialog_manager.event.from_user.id)
 

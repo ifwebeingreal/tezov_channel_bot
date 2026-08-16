@@ -13,10 +13,10 @@ from app.database.requests.admin.select import get_admins
 from app.database.requests.course.select import get_course
 from app.database.requests.course_order.select import get_course_order
 from app.database.requests.course_order.add import set_course_order
-from config import ACCOUNT_ID, SECRET_KEY
+from config import config
 
-Configuration.account_id = int(ACCOUNT_ID)
-Configuration.secret_key = str(SECRET_KEY)
+Configuration.account_id = int(config.yookassa.account_id)
+Configuration.secret_key = str(config.yookassa.secret_key)
 
 
 def create_course_invoice(course, tg_id):
@@ -39,7 +39,7 @@ def create_course_invoice(course, tg_id):
     }, uuid.uuid4())
 
 
-async def create_course_payment(callback: CallbackQuery, bot: Bot, course_id):
+async def create_course_payment(callback: CallbackQuery, bot: Bot, course_id: int):
     tg_id = callback.from_user.id
     course = await get_course(course_id)
     user = await get_course_order(tg_id, course_id)
@@ -54,7 +54,8 @@ async def create_course_payment(callback: CallbackQuery, bot: Bot, course_id):
 # Для оплаты на сумму {tariff.price} ₽ нажмите на кнопку "Оплатить"
 # После оплаты подписка продлиться автоматически</b>"""
 #     )
-    await callback.message.answer(message, reply_markup=await bkb.ukassa_pay_course(payment.confirmation.confirmation_url))
+    await callback.message.answer(message,
+                                  reply_markup=await bkb.ukassa_pay_course(payment.confirmation.confirmation_url))
 
     asyncio.create_task(check_course_payment_status(payment.id, callback, bot, course_id))
 
@@ -75,7 +76,7 @@ async def check_course_payment_status(payment_id: str, callback: CallbackQuery, 
         pass
 
 
-async def finalize_course_payment(callback: CallbackQuery, bot: Bot, course_id):
+async def finalize_course_payment(callback: CallbackQuery, bot: Bot, course_id: int):
     tg_id = callback.from_user.id
     user = await get_course_order(tg_id, course_id)
     course = await get_course(course_id)
