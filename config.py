@@ -12,7 +12,6 @@ class CommonConfig(BaseSettings):
 
 class BotConfig(CommonConfig):
     bot_token: str = Field(..., alias="BOT_TOKEN")
-    admins: List[int] = Field(default_factory=list, alias="ADMINS")
     channel_id: int = Field(..., alias="CHANNEL_ID")
     chat_id: int = Field(..., alias="CHAT_ID")
     channel_link: str = Field(..., alias="CHANNEL_LINK")
