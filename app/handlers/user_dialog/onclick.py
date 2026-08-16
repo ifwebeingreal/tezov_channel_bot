@@ -42,7 +42,7 @@ async def on_back_menu(callback: CallbackQuery, widget: Any, dialog_manager: Dia
 
 async def on_skate_level(callback: CallbackQuery, widget: Any,
                          dialog_manager: DialogManager, skate_level_id: int):
-    figures = await get_figures_by_level_id(skate_level_id)
+    figures = await get_figures_by_level_id(int(skate_level_id))
 
     if not figures:
         await callback.answer("Тут пока ничего нет, но скоро появится😉", show_alert=True)
@@ -56,7 +56,7 @@ async def on_skate_level(callback: CallbackQuery, widget: Any,
 async def on_figure(callback: CallbackQuery, widget: Any,
                     dialog_manager: DialogManager, figure_id: int):
     level_id = int(dialog_manager.dialog_data.get("skate_level_id"))
-    tricks = await get_tricks_by_level_id_and_figure_id(level_id, figure_id)
+    tricks = await get_tricks_by_level_id_and_figure_id(level_id, int(figure_id))
 
     if not tricks:
         await callback.answer("Тут пока ничего нет, но скоро появится😉", show_alert=True)
@@ -79,7 +79,7 @@ async def on_nine_in_one(callback: CallbackQuery, widget: Any, dialog_manager: D
 async def on_trick(callback: CallbackQuery, widget: Any,
                    dialog_manager: DialogManager, trick_id: int):
     trick = await get_trick_by_id(int(trick_id))
-    order = await get_order(callback.from_user.id, trick_id)
+    order = await get_order(callback.from_user.id, int(trick_id))
     subscription = await get_subscription(callback.from_user.id)
 
     if not trick:
